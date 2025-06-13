@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr.Romeu</title>
+    <title>Dr. Romeu Cota - Ortopedista Especialista em Quadril</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,423 +11,549 @@
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <!-- ScrollReveal JS para animações -->
     <script src="https://unpkg.com/scrollreveal"></script>
-    
+
     <!-- Estilos personalizados -->
     <style>
-        /* Define a fonte padrão para todo o corpo */
-        body {
+        /* Garante que a página não tenha rolagem horizontal */
+        html, body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* cinza muito claro */
+            background-color: #f8fafc; /* slate-50 */
+            color: #334155; /* slate-700 */
+            overflow-x: hidden;
         }
+
+         @keyframes spin-slow {
+        from { transform: translate(-50%, -50%) rotate(0deg); }
+        to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    .animate-spin-slow {
+        animation: spin-slow 35s linear infinite;
+    }
+    .bg-gradient-radial {
+        background-image: radial-gradient(circle, var(--tw-gradient-stops));
+    }
+
+    /* Estrutura de cada item da linha do tempo */
+    .timeline-item {
+        position: relative;
+        padding-left: 5rem; /* Espaço para o ponto e a linha */
+        margin-bottom: 3.5rem; /* Espaçamento entre os itens */
+    }
+
+    /* Ponto com ícone na linha do tempo */
+    .timeline-dot {
+        position: absolute;
+        left: 6px; /* Ajuste fino para alinhar com a linha */
+        top: 0;
+        transform: translateX(-50%);
+        width: 3rem; /* 48px */
+        height: 3rem; /* 48px */
+        background-color: #0f172a; /* bg-slate-900 */
+        color: #67e8f9; /* text-cyan-300 */
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem; /* text-xl */
+        border: 3px solid #38bdf8; /* border-sky-400 */
+        z-index: 10;
+    }
+
+    /* Card de conteúdo */
+    .timeline-content {
+        background-color: #1e293b; /* bg-slate-800 */
+        padding: 1.5rem; /* p-6 */
+        border-radius: 0.75rem; /* rounded-xl */
+        border: 1px solid #334155; /* border-slate-700 */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .timeline-content:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px -5px rgba(0, 191, 255, 0.1);
+    }
+    
+    /* Ajustes para telas maiores (desktop) */
+    @media (min-width: 768px) {
+        .timeline-item {
+            padding-left: 0;
+            width: 50%;
+            padding-right: 4rem; /* Espaço à direita do item esquerdo */
+        }
+        .timeline-item:nth-child(even) {
+            margin-left: 50%; /* Joga o item par para a direita */
+            padding-left: 4rem; /* Espaço à esquerda do item direito */
+            padding-right: 0;
+        }
+
+        .timeline-dot {
+            left: 50%;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            text-align: right;
+        }
+    }
         
-        /* Efeito de espelho/reflexo */
-        .mirror-effect {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .mirror-effect::after {
-            content: '';
-            position: absolute;
-            bottom: -50%;
-            left: 0;
-            width: 100%;
-            height: 50%;
-            background: inherit;
-            transform: scaleY(-1);
-            filter: blur(10px);
-            opacity: 0.2;
-            pointer-events: none; /* Garante que o reflexo não interfira com cliques */
-        }
-
-        /* Gradiente de fundo sutil */
-        .gradient-background {
-            background-image: radial-gradient(circle at top left, hsla(210, 60%, 95%, 0.5) 0%, transparent 40%),
-                              radial-gradient(circle at bottom right, hsla(180, 70%, 90%, 0.5) 0%, transparent 50%);
-        }
-
-        /* Efeito de vidro fosco para o header */
         .glassmorphism {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(200, 200, 200, 0.3);
         }
+
+        .gradient-background {
+            background-image: radial-gradient(circle at top left, hsla(200, 80%, 95%, 0.6) 0%, transparent 40%),
+                              radial-gradient(circle at bottom right, hsla(190, 70%, 92%, 0.5) 0%, transparent 50%);
+        }
         
-        /* Estilo para ícone do FAQ */
-        .accordion-button svg {
-            transition: transform 0.3s ease;
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: #0891B2; /* cyan-600 */
+            margin: 16px auto 0;
+            border-radius: 2px;
         }
-        .accordion-button[aria-expanded="true"] svg {
-            transform: rotate(180deg);
+
+        .section-title-dark::after {
+            background-color: #38bdf8; /* sky-400 */
         }
+
+        .section-title.text-left::after {
+            margin: 16px 0 0;
+        }
+        
+        .carousel-slider {
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        /* Estilo para botões desativados */
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Classes para esconder elementos para animação com ScrollReveal */
+        .reveal {
+            visibility: hidden;
+        }
+
     </style>
 </head>
-<body class="text-gray-700">
+<body class="bg-slate-50">
 
-    <!-- =========== Header =========== -->
-    <header id="header" class="glassmorphism sticky top-0 z-50 transition-all duration-300">
-        <nav class="container mx-auto px-6 py-7 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-cyan-700">Dr.Romeu</a>
-            <div class="hidden lg:flex items-center space-x-8">
-                <a href="#sobre" class="text-gray-600 hover:text-cyan-600 transition-colors">Sobre Mim</a>
-                <a href="#servicos" class="text-gray-600 hover:text-cyan-600 transition-colors">Serviços</a>
-                <a href="#depoimentos" class="text-gray-600 hover:text-cyan-600 transition-colors">Depoimentos</a>
-                <a href="#clinica" class="text-gray-600 hover:text-cyan-600 transition-colors">A Clínica</a>
-                <a href="#contato" class="px-6 py-2 bg-cyan-600 text-white font-semibold rounded-full hover:bg-cyan-700 shadow-lg transition-all transform hover:scale-105">Agendar Consulta</a>
-            </div>
-            <button id="mobile-menu-button" class="lg:hidden text-gray-700 focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-        </nav>
-        <!-- Menu Mobile -->
-        <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4">
-            <a href="#sobre" class="block py-2 text-gray-600 hover:text-cyan-600">Sobre Mim</a>
-            <a href="#servicos" class="block py-2 text-gray-600 hover:text-cyan-600">Serviços</a>
-            <a href="#depoimentos" class="block py-2 text-gray-600 hover:text-cyan-600">Depoimentos</a>
-            <a href="#clinica" class="block py-2 text-gray-600 hover:text-cyan-600">A Clínica</a>
-            <a href="#contato" class="block mt-4 w-full text-center px-6 py-2 bg-cyan-600 text-white font-semibold rounded-full hover:bg-cyan-700 shadow-lg">Agendar Consulta</a>
+    <!-- ======================= -->
+    <!-- 1. Cabeçalho (Fixo)     -->
+    <!-- ======================= -->
+    <header id="header" class="glassmorphism fixed top-0 left-0 w-full z-50 transition-all duration-300">
+    <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+        <a href="#inicio" class="text-xl md:text-2xl font-bold text-cyan-800">Dr. Romeu Cota</a>
+        <div class="hidden lg:flex items-center space-x-6">
+            <a href="#inicio" class="text-gray-600 hover:text-cyan-600 transition-colors">Início</a>
+            <a href="#sobre" class="text-gray-600 hover:text-cyan-600 transition-colors">Sobre</a>
+            <a href="#tratamentos" class="text-gray-600 hover:text-cyan-600 transition-colors">Tratamentos</a>
+            <a href="#jornada" class="text-gray-600 hover:text-cyan-600 transition-colors">Jornada</a>
+            <a href="#depoimentos" class="text-gray-600 hover:text-cyan-600 transition-colors">Depoimentos</a>
+            <a href="#contato" class="px-5 py-2 bg-cyan-600 text-white font-semibold rounded-full hover:bg-cyan-700 shadow-md hover:shadow-lg transition-all transform hover:scale-105">
+                Agendar Consulta
+            </a>
         </div>
-    </header>
+        <!-- Botão do Menu Mobile -->
+        <button id="mobile-menu-button" class="lg:hidden text-gray-700 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+    </nav>
+
+    <!-- Menu Mobile -->
+    <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4">
+        <a href="#inicio" class="block py-2 text-gray-600 hover:text-cyan-600">Início</a>
+        <a href="#sobre" class="block py-2 text-gray-600 hover:text-cyan-600">Sobre</a>
+        <a href="#tratamentos" class="block py-2 text-gray-600 hover:text-cyan-600">Tratamentos</a>
+        <a href="#jornada" class="block py-2 text-gray-600 hover:text-cyan-600">Jornada</a>
+        <a href="#depoimentos" class="block py-2 text-gray-600 hover:text-cyan-600">Depoimentos</a>
+        <a href="#contato"
+            class="block mt-4 w-full text-center px-6 py-2 bg-cyan-600 text-white font-semibold rounded-full hover:bg-cyan-700 shadow-lg">
+            Agende sua Consulta
+        </a>
+    </div>
+</header>
+
 
     <main>
-        <!-- =========== 1. Hero Section =========== -->
-        <section id="hero" class="gradient-background min-h-screen flex items-center">
-            <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-                <div class="hero-text text-center lg:text-left">
-                    <h1 class="text-4xl md:text-6xl font-extrabold text-gray-800 leading-tight">
-                        Recupere sua liberdade de movimento com um <span class="text-cyan-600">especialista em quadril.</span>
+        <!-- ======================= -->
+        <!-- 2. Seção Hero           -->
+        <!-- ======================= -->
+        <section id="inicio" class="gradient-background py-24 px-5 mb-5 md:mb-20 md:py-32 flex justify-center items-center ">
+            <div class="container mx-auto mt-5 md:mt-14 px-6 grid lg:grid-cols-2 justify-center gap-12 items-center">
+                <div class="text-center lg:text-left reveal">
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 leading-tight">
+                        Recupere sua <span class="text-cyan-600">liberdade de movimento</span> com um especialista em quadril.
                     </h1>
-                    <p class="mt-6 text-lg text-gray-600 max-w-lg mx-auto lg:mx-0">
-                       Tratamentos personalizados para dores, lesões e patologias do quadril.
+                    <p class="mt-6 text-lg text-slate-600 max-w-xl mx-auto lg:mx-0">
+                        Tratamentos personalizados para dores, lesões e patologias do quadril.
                     </p>
                     <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="#contato" class="px-8 py-4 bg-cyan-600 text-white font-bold rounded-full hover:bg-cyan-700 shadow-xl transition-all transform hover:scale-105">
-                            Agende sua Consulta
+                        <a href="#contato" class="px-6 py-3 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 shadow-xl transition-all transform hover:scale-105 flex items-center justify-center gap-2">
+                            <i class="fab fa-whatsapp"></i> Falar pelo WhatsApp
                         </a>
-                        <a href="#servicos" class="px-8 py-4 bg-gray-200 text-gray-800 font-bold rounded-full hover:bg-gray-300 shadow-lg transition-all transform hover:scale-105">
-                            Nossos Serviços
+                        <a href="#contato" class="px-6 py-3 bg-cyan-600 text-white font-bold rounded-full hover:bg-cyan-700 shadow-xl transition-all transform hover:scale-105 flex items-center justify-center gap-2">
+                           <i class="fa-regular fa-calendar-check"></i> Agendar Consulta
                         </a>
                     </div>
                 </div>
-                <div class="hero-image flex justify-center">
+                <div class="flex justify-center reveal">
                     <div class="relative w-full max-w-sm">
-                        <img src="assets/romeu-01.png" 
-                             alt="Retrato do Dr. Nome do Médico" 
-                             class="rounded-3xl shadow-2xl mirror-effect w-full h-auto">
-                        <div class="absolute -top-4 -left-4 w-20 h-20 bg-cyan-200 rounded-full opacity-50 -z-10"></div>
-                        <div class="absolute -bottom-6 -right-6 w-32 h-32 border-8 border-cyan-500 rounded-3xl -z-10"></div>
+                        <img src="assets/romeu-01.png"
+                             alt="Foto do Dr. Romeu Cota, ortopedista especialista em quadril"
+                             class="rounded-3xl shadow-2xl w-full h-auto">
+                        <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-cyan-200 rounded-full opacity-60 -z-10"></div>
+                        <div class="absolute -top-4 -left-4 w-32 h-32 border-8 border-cyan-500 rounded-3xl -z-10"></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- =========== 2. Sobre Mim =========== -->
-        <section id="sobre" class="py-20 bg-white">
-            <div class="container mx-auto px-6 grid lg:grid-cols-5 gap-16 items-center">
-                <div class="lg:col-span-2 about-image flex justify-center">
-                    <img src="assets/romeu-02.png" 
-                         alt="Dr. Nome em ambiente de consultório" 
-                         class="rounded-2xl shadow-xl w-full max-w-xs lg:max-w-none transform rotate-[-3deg] hover:rotate-0 hover:scale-105 transition-transform duration-300">
-                </div>
-                <div class="lg:col-span-3 about-text">
-                    <h2 class="section-title text-3xl font-bold text-gray-800 mb-4">Sobre Mim</h2>
-                    <h3 class="text-xl font-semibold text-cyan-600 mb-6">Dr. Romeu Cota, CRM/UF 123456</h3>
-                    <p class="mb-4 text-gray-600">
-                        Com mais de 15 anos de experiência, minha missão é oferecer um atendimento médico que une conhecimento técnico aprofundado e um cuidado genuinamente humano. Acredito que a relação médico-paciente é a base para qualquer tratamento de sucesso.
-                    </p>
-                    <p class="mb-6 text-gray-600">
-                        Formado pela Universidade de Exemplo e com especialização em [Sua Especialidade] pelo Hospital de Referência, busco constantemente me atualizar com as últimas inovações da medicina para garantir os melhores resultados para meus pacientes.
-                    </p>
-                    <div class="flex space-x-4">
-                        <div class="p-4 bg-cyan-50 border border-cyan-200 rounded-lg flex-1 text-center">
-                            <span class="text-2xl font-bold text-cyan-700 block">+15</span>
-                            <span class="text-sm text-gray-600">Anos de Experiência</span>
-                        </div>
-                        <div class="p-4 bg-cyan-50 border border-cyan-200 rounded-lg flex-1 text-center">
-                            <span class="text-2xl font-bold text-cyan-700 block">+1.000</span>
-                            <span class="text-sm text-gray-600">Pacientes Atendidos</span>
-                        </div>
-                    </div>
+        <!-- ======================= -->
+        <!-- 3. Sobre o Dr. Romeu    -->
+        <!-- ======================= -->
+        <section id="sobre" class="py-20 lg:py-40 bg-slate-900 text-white ">
+    <div class="container mx-auto px-6 grid lg:grid-cols-5 gap-16 items-center">
+        
+        <div class="lg:col-span-2 flex justify-center reveal">
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur-md opacity-60 group-hover:opacity-80 transition duration-500"></div>
+                <img src="assets/romeu-02.png"
+                     alt="Foto profissional do Dr. Romeu Cota"
+                     class="relative rounded-2xl shadow-xl w-full max-w-xs lg:max-w-none transform rotate-[-3deg] group-hover:rotate-0 group-hover:scale-105 transition-transform duration-300">
+            </div>
+        </div>
+
+        <div class="lg:col-span-3 reveal">
+            <h2 class="section-title text-left text-3xl lg:text-4xl font-bold text-white mb-6">
+                Sobre o Dr. Romeu Cota
+            </h2>
+            <p class="mb-4 text-slate-300 leading-relaxed">
+                Médico graduado, com residência médica em Ortopedia e Traumatologia e especialização em Cirurgia de Quadril, o Dr. Romeu Cota dedica-se ao diagnóstico e tratamento das mais diversas patologias que afetam esta articulação.
+            </p>
+            <p class="mb-8 text-slate-300 leading-relaxed">
+                Com vasta experiência e milhares de pacientes atendidos, seu principal objetivo é restaurar a função e aliviar a dor, permitindo que seus pacientes retomem suas atividades diárias com mais qualidade de vida.
+            </p>
+            
+            <div class="mt-8 p-6 bg-slate-800/50 border-l-4 border-cyan-400 rounded-r-lg shadow-lg">
+                <p class="text-lg italic text-cyan-200">
+                    "Comprometido com o bem-estar e qualidade de vida dos meus pacientes."
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+        
+        <!-- ============================== -->
+        <!-- 4. Especialidades e Tratamentos -->
+        <!-- ============================== -->
+        <section id="tratamentos" class="py-20 lg:py-24 gradient-background">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16 reveal">
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-slate-800">Especialidades e Tratamentos</h2>
+            <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">Soluções completas para a saúde do seu quadril, desde abordagens conservadoras até procedimentos cirúrgicos complexos.</p>
+        </div>
+        
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 p-8">
+            
+            <div class="card-tratamento reveal shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] p-8 px-10 rounded-2xl">
+                <div class="text-cyan-600 text-4xl mb-4"><i class="fa-solid fa-person-walking"></i></div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">Dor no quadril e virilha</h3>
+                <p class="text-slate-600 text-sm">Investigação e tratamento da causa raiz da dor para restaurar o seu bem-estar.</p>
+            </div>
+
+            <div class="card-tratamento reveal shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] p-8 px-10 rounded-2xl">
+                <div class="text-cyan-600 text-4xl mb-4"><i class="fa-solid fa-bone"></i></div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">Artrose de quadril</h3>
+                <p class="text-slate-600 text-sm">Alívio da dor e melhora da mobilidade causada pelo desgaste da articulação.</p>
+            </div>
+
+            <div class="card-tratamento reveal shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] p-8 px-10 rounded-2xl">
+                <div class="text-cyan-600 text-4xl mb-4"><i class="fa-solid fa-arrow-down-up-across-line"></i></div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">Impacto Femoroacetabular</h3>
+                <p class="text-slate-600 text-sm">Correção do atrito anormal na articulação do quadril, comum em jovens e atletas.</p>
+            </div>
+
+            <div class="card-tratamento reveal shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] p-8 px-10 rounded-2xl">
+                <div class="text-cyan-600 text-4xl mb-4"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">Bursite Trocantérica</h3>
+                <p class="text-slate-600 text-sm">Tratamento da inflamação na lateral do quadril para eliminar a dor ao deitar ou caminhar.</p>
+            </div>
+
+            <div class="card-tratamento reveal shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] p-8 px-10 rounded-2xl">
+                <div class="text-cyan-600 text-4xl mb-4"><i class="fa-solid fa-dumbbell"></i></div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">Tendinites e Lesões</h3>
+                <p class="text-slate-600 text-sm">Recuperação de lesões nos tendões e músculos ao redor do quadril.</p>
+            </div>
+            
+            <div class="card-tratamento reveal shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] p-8 px-10 rounded-2xl">
+                <div class="text-cyan-600 text-4xl mb-4"><i class="fa-solid fa-hospital-user"></i></div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">Prótese Total de Quadril</h3>
+                <p class="text-slate-600 text-sm">Cirurgia avançada para substituir a articulação e restaurar a qualidade de vida.</p>
+            </div>
+
+            <div class="card-tratamento reveal shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] p-8 px-10 rounded-2xl">
+                <div class="text-cyan-600 text-4xl mb-4"><i class="fa-solid fa-notes-medical"></i></div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">Tratamentos Conservadores</h3>
+                <p class="text-slate-600 text-sm">Abordagens não-cirúrgicas como fisioterapia e infiltrações para alívio dos sintomas.</p>
+            </div>
+
+            <div class="card-tratamento reveal shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] p-8 px-10 rounded-2xl">
+                <div class="text-cyan-600 text-4xl mb-4"><i class="fa-solid fa-user-doctor"></i></div>
+                <h3 class="text-xl font-bold text-slate-800 mb-2">Avaliação Pós-Trauma</h3>
+                <p class="text-slate-600 text-sm">Análise e acompanhamento de fraturas e lesões traumáticas na região do quadril.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- ========================== -->
+        <!-- 5. Sua Jornada de Cuidado  -->
+        <!-- ========================== -->
+        <section id="jornada" class="relative py-20 px-8 lg:py-24 bg-slate-900 text-white overflow-hidden">
+    
+    <!-- Efeito de Background Animado (Aurora) -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] max-w-[1200px] max-h-[1200px] bg-gradient-radial from-cyan-900/30 via-slate-900/0 to-slate-900/0 rounded-full animate-spin-slow pointer-events-none"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="text-center mb-16 reveal">
+            <h2 class="section-title section-title-dark text-3xl md:text-4xl font-bold tracking-tight">Sua Jornada de Cuidado</h2>
+           
+        </div>
+
+        <!-- Estrutura da Timeline -->
+        <div class="relative max-w-5xl mx-auto">
+            <!-- Linha Guia Vertical (visível em todos os tamanhos) -->
+            <div class="absolute left-6 md:left-1/2 w-0.5 h-full bg-slate-700 -translate-x-1/2" aria-hidden="true"></div>
+
+            <!-- Item da Jornada 1 -->
+            <div class="timeline-item reveal">
+                <!-- Ponto na linha com ícone -->
+                <div class="timeline-dot block items-center justify-center flex md:hidden"><i class="fa-regular fa-calendar-check"></i></div>
+                <!-- Conteúdo do card -->
+                <div class="timeline-content">
+                    <h3 class="font-bold text-xl mb-2 text-cyan-400">1. Agendamento</h3>
+                    <p class="text-slate-300">Entre em contato por WhatsApp ou telefone para marcar sua primeira avaliação de forma rápida e fácil.</p>
                 </div>
             </div>
-        </section>
 
-        <!-- =========== 3. Serviços =========== -->
-        <section id="servicos" class="py-20">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="section-title text-3xl font-bold text-gray-800">Serviços e Especialidades</h2>
-                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Ofereço uma gama completa de serviços para cuidar da sua saúde de forma integral.</p>
-                </div>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Card de Serviço 1 -->
-                    <div class="service-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-                        <div class="w-16 h-16 bg-cyan-100 rounded-full flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3">Consultas de Rotina</h3>
-                        <p class="text-gray-600">Acompanhamento completo e check-ups preventivos para manter sua saúde em dia.</p>
-                    </div>
-                    <!-- Card de Serviço 2 -->
-                    <div class="service-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-                        <div class="w-16 h-16 bg-cyan-100 rounded-full flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3">Diagnósticos Avançados</h3>
-                        <p class="text-gray-600">Utilização de tecnologia de ponta para um diagnóstico preciso e rápido.</p>
-                    </div>
-                    <!-- Card de Serviço 3 -->
-                    <div class="service-card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-                        <div class="w-16 h-16 bg-cyan-100 rounded-full flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h1a2 2 0 002-2v-1a2 2 0 012-2h1.945M7.884 4.022l.33.33a2 2 0 002.828 0l.33-.33m-3.488 0l1.414-1.414m-1.414 1.414L6.12 2.608M15.12 4.022l.33.33a2 2 0 012.828 0l.33-.33m-3.488 0l1.414-1.414m-1.414 1.414L13.12 2.608m2 16.784l.33.33a2 2 0 002.828 0l.33-.33m-3.488 0l1.414 1.414m-1.414 1.414l-1.768 1.768M7.885 20.978l.33.33a2 2 0 012.828 0l.33-.33m-3.488 0l1.414-1.414m-1.414 1.414l-1.768 1.768"></path></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-3">Tratamentos Personalizados</h3>
-                        <p class="text-gray-600">Planos de tratamento individualizados, focados nas suas necessidades específicas.</p>
-                    </div>
+            <!-- Item da Jornada 2 -->
+            <div class="timeline-item reveal">
+                <div class="timeline-dot block items-center justify-center flex md:hidden"><i class="fa-solid fa-user-doctor"></i></div>
+                <div class="timeline-content">
+                    <h3 class="font-bold text-xl mb-2 text-cyan-400">2. Consulta e Diagnóstico</h3>
+                    <p class="text-slate-300">Uma conversa detalhada para entender seu histórico, seguida de um exame físico completo para um diagnóstico preciso.</p>
                 </div>
             </div>
-        </section>
 
-        <!-- =========== 4. Minha Abordagem =========== -->
-        <section id="abordagem" class="py-20 bg-white">
-            <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
-                <div class="approach-text">
-                    <h2 class="section-title text-4xl font-bold text-gray-800 mb-6">Minha Abordagem</h2>
-                    <p class="mb-4 text-gray-600">Eu acredito que a medicina moderna deve ser uma aliança entre a mais avançada ciência e a mais profunda empatia. Cada paciente é único, e por isso, dedico tempo para ouvir, entender e construir um plano de cuidados colaborativo.</p>
-                    <ul class="space-y-4 mt-6">
-                        <li class="flex items-start">
-                            <div class="flex-shrink-0 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-4 mt-1">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            </div>
-                            <span class="text-gray-700"><strong>Atendimento</strong>humanizado e individualizado</span>
-                        </li>
-                        <li class="flex items-start">
-                           <div class="flex-shrink-0 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-4 mt-1">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            </div>
-                            <span class="text-gray-700"><strong>Atualização</strong> Atualização constante em congressos nacionais e internacionais.</span>
-                        </li>
-                        <li class="flex items-start">
-                            <div class="flex-shrink-0 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-4 mt-1">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            </div>
-                            <span class="text-gray-700"><strong>Tecnologia como Aliada:</strong> Tecnologia e exames de ponta para diagnóstico preciso</span>
-                        </li>
-                        <li class="flex items-start">
-                            <div class="flex-shrink-0 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center mr-4 mt-1">
-                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            </div>
-                            <span class="text-gray-700"><strong>Parcerias</strong>com clínicas e hospitais referência</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="approach-image flex justify-center">
-                     <div class="relative w-full p-10 md:p-20 max-w-md">
-                        <img class="" src="assets/image-medic.png" 
-                             alt="Imagem representando tecnologia e cuidado" 
-                             class="rounded-full shadow-2xl w-full h-auto">
-                        <div class="absolute top-0 left-0 w-full bg-blue-500 h-full border-8 border-cyan-200 rounded-full transform rotate-6 scale-105 -z-10"></div>
-                     </div>
+            <!-- Item da Jornada 3 -->
+            <div class="timeline-item reveal">
+                <div class="timeline-dot block items-center justify-center flex md:hidden"><i class="fa-solid fa-clipboard-list"></i></div>
+                <div class="timeline-content">
+                    <h3 class="font-bold text-xl mb-2 text-cyan-400">3. Plano de Tratamento</h3>
+                    <p class="text-slate-300">Com base no diagnóstico, criamos juntos um plano de tratamento personalizado, seja ele conservador ou cirúrgico.</p>
                 </div>
             </div>
-        </section>
 
-        <!-- =========== 5. Depoimentos =========== -->
+            <!-- Item da Jornada 4 -->
+            <div class="timeline-item reveal">
+                <div class="timeline-dot block items-center justify-center flex md:hidden"><i class="fa-solid fa-person-running"></i></div>
+                <div class="timeline-content">
+                    <h3 class="font-bold text-xl mb-2 text-cyan-400">4. Recuperação e Acompanhamento</h3>
+                    <p class="text-slate-300">Seguimos de perto sua evolução para garantir a melhor recuperação e o retorno às suas atividades.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+        <!-- ============================== -->
+        <!-- 6. Depoimentos de Pacientes    -->
+        <!-- ============================== -->
         <section id="depoimentos" class="py-20 gradient-background">
             <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <h2 class="section-title text-3xl font-bold text-gray-800">O que meus pacientes dizem</h2>
-                    <p class="mt-4 text-lg text-gray-600">A confiança e a satisfação de quem eu cuido é minha maior recompensa.</p>
+                <div class="text-center mb-12 reveal">
+                    <h2 class="section-title text-3xl font-bold text-slate-800">Depoimentos de Pacientes</h2>
+                    <p class="mt-4 text-lg text-slate-600">A confiança e a recuperação de quem confia em nosso trabalho.</p>
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Depoimento 1 -->
-                    <div class="testimonial-card bg-white p-8 rounded-2xl shadow-lg transform hover:scale-105 transition-transform duration-300">
-                        <div class="flex items-center mb-4">
-                            <img src="https://placehold.co/60x60/E0E7FF/4338CA?text=JS" alt="Foto de João Silva" class="w-14 h-14 rounded-full mr-4">
-                            <div>
-                                <h4 class="font-bold text-gray-800">João Silva</h4>
-                                <p class="text-sm text-gray-500">Paciente há 5 anos</p>
-                            </div>
+                    <!-- Depoimento Card -->
+                    <div class="bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-lg transform hover:scale-105 transition-transform duration-300 border border-slate-200 reveal">
+                        <i class="fa-solid fa-quote-left text-cyan-400 text-3xl mb-4"></i>
+                        <p class="text-slate-600 italic mb-6">"Sofri por anos com dor no quadril. Após o tratamento com o Dr. Romeu, voltei a caminhar sem dor e recuperei minha qualidade de vida. Gratidão eterna!"</p>
+                        <div>
+                            <h4 class="font-bold text-slate-800">J. S.</h4>
+                            <p class="text-sm text-slate-500">Paciente, 62 anos</p>
                         </div>
-                        <p class="text-gray-600 italic">"Dr. Romeu é um profissional excepcional. Atencioso, didático e muito competente. Me senti seguro e bem cuidado durante todo o tratamento."</p>
                     </div>
-                    <!-- Depoimento 2 -->
-                    <div class="testimonial-card bg-white p-8 rounded-2xl shadow-lg transform hover:scale-105 transition-transform duration-300">
-                        <div class="flex items-center mb-4">
-                            <img src="https://placehold.co/60x60/FFE4E6/9F1239?text=MP" alt="Foto de Maria Pereira" class="w-14 h-14 rounded-full mr-4">
-                            <div>
-                                <h4 class="font-bold text-gray-800">Maria Pereira</h4>
-                                <p class="text-sm text-gray-500">Paciente há 3 anos</p>
-                            </div>
+                    <!-- Depoimento Card -->
+                    <div class="bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-lg transform hover:scale-105 transition-transform duration-300 border border-slate-200 reveal">
+                        <i class="fa-solid fa-quote-left text-cyan-400 text-3xl mb-4"></i>
+                        <p class="text-slate-600 italic mb-6">"Profissional extremamente competente e atencioso. Explicou cada detalhe do meu problema e do tratamento. Senti total segurança no procedimento."</p>
+                        <div>
+                            <h4 class="font-bold text-slate-800">M. P.</h4>
+                            <p class="text-sm text-slate-500">Paciente, 45 anos</p>
                         </div>
-                        <p class="text-gray-600 italic">"Finalmente encontrei um médico que me ouve de verdade. A abordagem humanizada do Dr. Romeu fez toda a diferença na minha recuperação."</p>
                     </div>
-                    <!-- Depoimento 3 -->
-                    <div class="testimonial-card bg-white p-8 rounded-2xl shadow-lg transform hover:scale-105 transition-transform duration-300">
-                        <div class="flex items-center mb-4">
-                            <img src="https://placehold.co/60x60/D1FAE5/047857?text=CF" alt="Foto de Carlos Ferreira" class="w-14 h-14 rounded-full mr-4">
-                            <div>
-                                <h4 class="font-bold text-gray-800">Carlos Ferreira</h4>
-                                <p class="text-sm text-gray-500">Paciente há 2 anos</p>
-                            </div>
+                    <!-- Depoimento Card -->
+                    <div class="bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-lg transform hover:scale-105 transition-transform duration-300 border border-slate-200 reveal">
+                         <i class="fa-solid fa-quote-left text-cyan-400 text-3xl mb-4"></i>
+                        <p class="text-slate-600 italic mb-6">"Tinha medo da cirurgia de prótese, mas a equipe do Dr. Romeu me passou muita tranquilidade. A recuperação foi ótima e hoje não tenho mais limitações."</p>
+                        <div>
+                            <h4 class="font-bold text-slate-800">C. A.</h4>
+                            <p class="text-sm text-slate-500">Paciente, 68 anos</p>
                         </div>
-                        <p class="text-gray-600 italic">"A clínica é moderna, o atendimento é pontual e o Dr. Romeu utiliza tecnologia de ponta. Recomendo de olhos fechados!"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ======================= -->
+        <!-- 7. A Clínica / Galeria  -->
+        <!-- ======================= -->
+        <section id="clinica" class="py-20 md:py-40 bg-white">
+            <div class="w-full max-w-6xl mx-auto px-4">
+        <div class="text-center mb-12 reveal">
+                    <h2 class="section-title text-3xl font-bold text-slate-800">Galeria Dr.Romeu</h2>
+                    <p class="mt-4 text-lg text-slate-600">A confiança e a recuperação de quem confia em nosso trabalho.</p>
+                </div>
+        
+        <!-- Contêiner principal do carrossel -->
+        <div id="carousel" class="relative rounded-lg shadow-2xl container" data-interval="3000">
+            <!-- Contêiner que esconde o excesso das imagens (viewport) -->
+            <div class="overflow-hidden relative w-full h-80 rounded-lg">
+                <!-- Slider que contém todas as imagens -->
+                <div id="slider" class="flex carousel-slider h-full">
+                    <!-- Itens do Carrossel (9 imagens para o exemplo) -->
+                    <!-- Cada item agora ocupa 1/3 da largura em telas médias e maiores -->
+                    <div class="flex-shrink-0 w-1/2 md:w-1/3 h-full px-2">
+                        <img src="assets/i1.jpeg" alt="Imagem descritiva 1" class="w-full h-full object-cover rounded-md">
+                    </div>
+                    <div class="flex-shrink-0 w-1/2 md:w-1/3 h-full px-2">
+                        <img src="assets/i2.jpeg" alt="Imagem descritiva 2" class="w-full h-full object-cover rounded-md">
+                    </div>
+                    <div class="flex-shrink-0 w-1/2 md:w-1/3 h-full px-2">
+                        <img src="assets/i3.jpeg" alt="Imagem descritiva 3" class="w-full h-full object-cover rounded-md">
+                    </div>
+                    <div class="flex-shrink-0 w-1/2 md:w-1/3 h-full px-2">
+                        <img src="assets/i4.jpeg" alt="Imagem descritiva 4" class="w-full h-full object-cover rounded-md">
+                    </div>
+                    <div class="flex-shrink-0 w-1/2 md:w-1/3 h-full px-2">
+                        <img src="assets/i5.jpeg" alt="Imagem descritiva 5" class="w-full h-full object-cover rounded-md">
+                    </div>
+                    <div class="flex-shrink-0 w-1/2 md:w-1/3 h-full px-2">
+                        <img src="assets/i6.jpeg" alt="Imagem descritiva 6" class="w-full h-full object-cover rounded-md">
+                    </div>
+                     <div class="flex-shrink-0 w-1/2 md:w-1/3 h-full px-2">
+                        <img src="assets/i7.jpeg" alt="Imagem descritiva 7" class="w-full h-full object-cover rounded-md">
+                    </div>
+                     <div class="flex-shrink-0 w-1/2 md:w-1/3 h-full px-2">
+                        <img src="assets/i1.jpeg" alt="Imagem descritiva 8" class="w-full h-full object-cover rounded-md">
+                    </div>
+                     <div class="flex-shrink-0 w-1/2 md:w-1/3 h-full px-2">
+                        <img src="assets/i3.jpeg" alt="Imagem descritiva 9" class="w-full h-full object-cover rounded-md">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botão Anterior -->
+            <button id="prevBtn" class="absolute top-1/2 left-4 -translate-y-1/2 bg-white/50 hover:bg-white/80 backdrop-blur-sm text-gray-800 rounded-full p-2 transition-colors duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+
+            <!-- Botão Próximo -->
+            <button id="nextBtn" class="absolute top-1/2 right-4 -translate-y-1/2 bg-white/50 hover:bg-white/80 backdrop-blur-sm text-gray-800 rounded-full p-2 transition-colors duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+
+            <!-- Indicadores de Ponto -->
+            <div id="dots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+                <!-- Os pontos serão gerados pelo JavaScript -->
+            </div>
+        </div>
+    </div>
+        </section>
+
+        <!-- ============================== -->
+        <!-- 8. Chamada para Ação Final     -->
+        <!-- ============================== -->
+        <section id="contato" class="py-20 bg-slate-800 text-white">
+            <div class="container mx-auto px-6 text-center">
+                <div class="reveal">
+                    <h2 class="text-3xl font-bold">Não conviva com a dor no quadril.</h2>
+                    <p class="mt-4 text-lg text-slate-300 max-w-2xl mx-auto">Agende sua consulta com um especialista e dê o primeiro passo para uma vida sem dor e com mais movimento!</p>
+                    <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="#" class="px-8 py-4 bg-white text-slate-800 font-bold rounded-full hover:bg-gray-100 shadow-xl transition-all transform hover:scale-105">
+                            Quero Agendar Consulta
+                        </a>
+                        <a href="#" class="px-8 py-4 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 shadow-xl transition-all transform hover:scale-105">
+                            Tirar Dúvidas no WhatsApp
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- =========== 6. A Clínica =========== -->
-        <section id="clinica" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                 <div class="text-center mb-12">
-                    <h2 class="section-title text-3xl font-bold text-gray-800">Conheça nosso espaço</h2>
-                    <p class="mt-4 text-lg text-gray-600">Um ambiente pensado para o seu conforto e bem-estar.</p>
-                </div>
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="gallery-item col-span-2 row-span-2">
-                         <img src="https://placehold.co/600x600/E2E8F0/4A5568?text=Recepção" alt="Recepção da clínica" class="h-full w-full object-cover rounded-2xl shadow-lg mirror-effect">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://placehold.co/300x300/E2E8F0/4A5568?text=Consultório" alt="Consultório médico" class="h-full w-full object-cover rounded-2xl shadow-lg mirror-effect">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="https://placehold.co/300x300/E2E8F0/4A5568?text=Detalhe" alt="Detalhe da decoração" class="h-full w-full object-cover rounded-2xl shadow-lg mirror-effect">
-                    </div>
-                    <div class="gallery-item col-span-2">
-                        <img src="https://placehold.co/600x300/E2E8F0/4A5568?text=Equipamentos" alt="Equipamentos modernos" class="h-full w-full object-cover rounded-2xl shadow-lg mirror-effect">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- =========== 7. Perguntas Frequentes (FAQ) =========== -->
-        <section id="faq" class="py-20">
-            <div class="container mx-auto px-6 max-w-4xl">
-                <div class="text-center mb-12">
-                    <h2 class="section-title text-3xl font-bold text-gray-800">Perguntas Frequentes</h2>
-                    <p class="mt-4 text-lg text-gray-600">Tire suas dúvidas mais comuns por aqui.</p>
-                </div>
-                <div class="space-y-4" id="faq-accordion">
-                    <!-- FAQ Item 1 -->
-                    <div class="faq-item bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
-                        <h2>
-                            <button type="button" class="accordion-button flex items-center justify-between w-full p-6 font-semibold text-left text-gray-800" aria-expanded="false">
-                                <span>Quais convênios são aceitos?</span>
-                                <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </button>
-                        </h2>
-                        <div class="accordion-content hidden">
-                            <div class="p-6 pt-0">
-                                <p class="text-gray-600">Atualmente, aceitamos os seguintes convênios: Plano A, Plano B, Plano C. Para informações sobre cobertura e reembolso para outros planos, por favor, entre em contato com nossa equipe.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- FAQ Item 2 -->
-                    <div class="faq-item bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
-                        <h2>
-                             <button type="button" class="accordion-button flex items-center justify-between w-full p-6 font-semibold text-left text-gray-800" aria-expanded="false">
-                                <span>Como posso agendar minha primeira consulta?</span>
-                                <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </button>
-                        </h2>
-                        <div class="accordion-content hidden">
-                            <div class="p-6 pt-0">
-                                <p class="text-gray-600">Você pode agendar sua consulta de forma rápida e fácil através do formulário de contato nesta página, pelo telefone (XX) XXXX-XXXX ou via WhatsApp no mesmo número. Nossa equipe retornará o mais breve possível para confirmar.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- FAQ Item 3 -->
-                    <div class="faq-item bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
-                        <h2>
-                            <button type="button" class="accordion-button flex items-center justify-between w-full p-6 font-semibold text-left text-gray-800" aria-expanded="false">
-                                <span>O que devo levar para a primeira consulta?</span>
-                                <svg class="w-6 h-6 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </button>
-                        </h2>
-                        <div class="accordion-content hidden">
-                            <div class="p-6 pt-0">
-                                <p class="text-gray-600">Recomendamos que traga um documento de identificação com foto, sua carteirinha do convênio (se aplicável), e quaisquer exames anteriores relevantes para sua condição de saúde.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- =========== 8. Contato e Agendamento =========== -->
-        <section id="contato" class="py-20 bg-cyan-700 text-white">
-            <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-12">
-                <div class="contact-info">
-                    <h2 class="text-3xl font-bold mb-6">Entre em Contato</h2>
-                    <p class="mb-8 max-w-lg">Estou à disposição para ajudar você a alcançar seus objetivos de saúde. Preencha o formulário ou utilize um dos canais abaixo para agendar sua consulta.</p>
-                    <div class="space-y-6">
-                        <div class="flex items-center">
-                            <div class="w-12 h-12 bg-cyan-600 rounded-full flex items-center justify-center mr-4">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold">Endereço</h4>
-                                <p>Rua Exemplo, 123, Sala 404, Bairro, Cidade-UF</p>
-                            </div>
-                        </div>
-                         <div class="flex items-center">
-                            <div class="w-12 h-12 bg-cyan-600 rounded-full flex items-center justify-center mr-4">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold">Telefone & WhatsApp</h4>
-                                <p>(XX) 91234-5678</p>
-                            </div>
-                        </div>
-                         <div class="flex items-center">
-                             <div class="w-12 h-12 bg-cyan-600 rounded-full flex items-center justify-center mr-4">
-                               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold">Email</h4>
-                                <p>contato@drromeu.com.br</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form bg-white p-8 rounded-2xl shadow-2xl">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Agende uma avaliação</h3>
-                    <form action="#" method="POST">
-                        <div class="mb-5">
-                            <label for="name" class="block mb-2 text-sm font-medium text-gray-700">Seu Nome</label>
-                            <input type="text" id="name" name="name" class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500" required>
-                        </div>
-                        <div class="mb-5">
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-700">Seu Email</label>
-                            <input type="email" id="email" name="email" class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500" required>
-                        </div>
-                        <div class="mb-5">
-                             <label for="message" class="block mb-2 text-sm font-medium text-gray-700">Mensagem (opcional)</label>
-                             <textarea id="message" name="message" rows="4" class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-500 focus:border-cyan-500" placeholder="Prefere algum horário específico?"></textarea>
-                        </div>
-                        <button type="submit" class="w-full px-8 py-4 bg-cyan-600 text-white font-bold rounded-full hover:bg-cyan-700 shadow-xl transition-all transform hover:scale-105">
-                            Solicitar Agendamento
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </section>
     </main>
-
-    <!-- =========== Footer =========== -->
-    <footer class="bg-gray-800 text-gray-400 py-12">
-        <div class="container mx-auto px-6 text-center">
-            <p>&copy; 2024 Dr. Romeu. Todos os direitos reservados.</p>
-            <p class="text-sm mt-2">Desenvolvido com tecnologia e cuidado.</p>
-            <p class="text-xs mt-4">As informações contidas neste site têm caráter informativo e educacional. Não substituem o aconselhamento e o acompanhamento de médicos.</p>
+    
+    <!-- ================== -->
+    <!-- 9. Rodapé          -->
+    <!-- ================== -->
+    <footer class="bg-slate-900 text-slate-400">
+        <div class="container mx-auto px-6 py-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                <div>
+                    <h3 class="font-bold text-white text-lg">Dr. Romeu Cota</h3>
+                    <p class="text-sm mt-2">Ortopedista Especialista em Quadril<br>CRM/SP 123.456</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white text-lg">Links Rápidos</h3>
+                    <ul class="mt-2 space-y-1">
+                        <li><a href="#inicio" class="hover:text-white">Início</a></li>
+                        <li><a href="#tratamentos" class="hover:text-white">Tratamentos</a></li>
+                         <li><a href="#jornada" class="hover:text-white">Jornada</a></li>
+                        <li><a href="#contato" class="hover:text-white">Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white text-lg">Redes Sociais</h3>
+                    <div class="flex justify-center md:justify-start space-x-4 mt-2">
+                        <a href="#" class="hover:text-white text-2xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="hover:text-white text-2xl"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="hover:text-white text-2xl"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-10 pt-6 border-t border-slate-700 text-center text-sm text-slate-500">
+                <p>&copy; 2024 Dr. Romeu Cota. Todos os direitos reservados.</p>
+                <p class="mt-1">Desenvolvido por [Seu Nome/Sua Agência]</p>
+            </div>
         </div>
     </footer>
+
 
     <script>
         // Lógica para o menu mobile
@@ -438,49 +564,179 @@
             mobileMenu.classList.toggle('hidden');
         });
 
-        // Lógica para o FAQ Accordion
-        const accordionButtons = document.querySelectorAll('.accordion-button');
-
-        accordionButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const content = button.parentElement.nextElementSibling;
-                const isExpanded = button.getAttribute('aria-expanded') === 'true';
-
-                button.setAttribute('aria-expanded', !isExpanded);
-                content.classList.toggle('hidden');
+        // Fecha o menu mobile ao clicar em um link
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
             });
         });
 
-        const sr = ScrollReveal({
-            distance: '60px',
-            duration: 2500,
-            delay: 400,
-            reset: false, 
-        });
-        
-        sr.reveal('.hero-text', { origin: 'top' });
-        sr.reveal('.hero-image', { origin: 'bottom', delay: 600 });
-        sr.reveal('.section-title', { origin: 'left' });
-        sr.reveal('.about-image', { origin: 'left', distance: '100px' });
-        sr.reveal('.about-text', { origin: 'right', distance: '100px', delay: 200 });
-        sr.reveal('.service-card', { origin: 'bottom', interval: 200 });
-        sr.reveal('.approach-text', { origin: 'left' });
-        sr.reveal('.approach-image', { origin: 'right', delay: 200 });
-        sr.reveal('.testimonial-card', { origin: 'bottom', interval: 200 });
-        sr.reveal('.gallery-item', { origin: 'bottom', interval: 150, scale: 0.9 });
-        sr.reveal('.faq-item', { origin: 'bottom', interval: 150 });
-        sr.reveal('.contact-info', { origin: 'left' });
-        sr.reveal('.contact-form', { origin: 'right', delay: 200 });
+        document.addEventListener("DOMContentLoaded", function() {
+        if (typeof ScrollReveal !== 'undefined') {
+            const sr = ScrollReveal({
+                distance: '50px',
+                duration: 1500,
+                easing: 'cubic-bezier(0.5, 0, 0, 1)',
+                reset: false
+            });
 
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('shadow-md');
-            } else {
-                header.classList.remove('shadow-md');
+            sr.reveal('.reveal', {
+                origin: 'bottom',
+                interval: 100
+            });
+        }
+    });
+
+       document.addEventListener('DOMContentLoaded', function () {
+            // --- CONFIGURAÇÃO ---
+            const carousel = document.getElementById('carousel');
+            const slider = document.getElementById('slider');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const dotsContainer = document.getElementById('dots');
+
+            const slides = slider.children;
+            const totalSlides = slides.length;
+            const intervalTime = parseInt(carousel.dataset.interval, 10) || 3000;
+            
+            let currentIndex = 0;
+            let autoplayInterval = null;
+            let itemsPerPage = 3; // Padrão para telas maiores
+
+            // --- FUNÇÕES ---
+
+            /**
+             * Determina quantos itens mostrar com base na largura da tela.
+             */
+            function setItemsPerPage() {
+                if (window.innerWidth < 768) { // breakpoint 'md' do Tailwind
+                    itemsPerPage = 2;
+                } else {
+                    itemsPerPage = 3;
+                }
             }
-        });
+            
+            // Calcula o índice máximo que o carrossel pode atingir
+            function getMaxIndex() {
+                return totalSlides - itemsPerPage;
+            }
+            
+            /**
+             * Move o carrossel para um slide específico.
+             * @param {number} index - O índice do slide para o qual mover.
+             */
+            function goToSlide(index) {
+                // Garante que o índice esteja dentro dos limites
+                const maxIndex = getMaxIndex();
+                if (index < 0) {
+                    index = 0;
+                } else if (index > maxIndex) {
+                    index = maxIndex;
+                }
+                
+                // Calcula o deslocamento. Cada item tem 100/itemsPerPage de largura.
+                const offset = index * (100 / itemsPerPage);
+                slider.style.transform = `translateX(-${offset}%)`;
+                currentIndex = index;
+                
+                updateDots();
+                updateButtons();
+            }
 
+            /**
+             * Atualiza a aparência dos botões (ativado/desativado).
+             */
+            function updateButtons() {
+                const maxIndex = getMaxIndex();
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex === maxIndex;
+            }
+            
+            /**
+             * Atualiza o estado visual dos pontos indicadores.
+             */
+            function updateDots() {
+                const dots = dotsContainer.children;
+                 if (dots.length === 0) return;
+                for (let i = 0; i < dots.length; i++) {
+                    dots[i].classList.remove('bg-white');
+                    dots[i].classList.add('bg-white/50');
+                }
+                // O ponto ativo corresponde ao índice atual
+                if(dots[currentIndex]){
+                    dots[currentIndex].classList.add('bg-white');
+                    dots[currentIndex].classList.remove('bg-white/50');
+                }
+            }
+
+            /**
+             * Cria os pontos indicadores dinamicamente.
+             */
+            function createDots() {
+                dotsContainer.innerHTML = ''; // Limpa os pontos existentes
+                const maxIndex = getMaxIndex();
+                // Cria um ponto para cada posição de parada possível
+                for (let i = 0; i <= maxIndex; i++) {
+                    const dot = document.createElement('button');
+                    dot.classList.add('w-2.5', 'h-2.5', 'rounded-full', 'transition-colors', 'duration-300');
+                    dot.addEventListener('click', () => {
+                        goToSlide(i);
+                        resetAutoplay();
+                    });
+                    dotsContainer.appendChild(dot);
+                }
+            }
+
+            function startAutoplay() {
+                stopAutoplay();
+                autoplayInterval = setInterval(() => {
+                    const maxIndex = getMaxIndex();
+                    let nextIndex = currentIndex + 1;
+                    if (nextIndex > maxIndex) {
+                        nextIndex = 0; // Volta para o início
+                    }
+                    goToSlide(nextIndex);
+                }, intervalTime);
+            }
+
+            function stopAutoplay() {
+                clearInterval(autoplayInterval);
+            }
+
+            function resetAutoplay() {
+                stopAutoplay();
+                startAutoplay();
+            }
+
+            // --- EVENT LISTENERS ---
+            nextBtn.addEventListener('click', () => {
+                goToSlide(currentIndex + 1);
+                resetAutoplay();
+            });
+
+            prevBtn.addEventListener('click', () => {
+                goToSlide(currentIndex - 1);
+                resetAutoplay();
+            });
+
+            carousel.addEventListener('mouseenter', stopAutoplay);
+            carousel.addEventListener('mouseleave', startAutoplay);
+            
+            // Recalcula tudo se a janela for redimensionada
+            window.addEventListener('resize', () => {
+                setItemsPerPage();
+                createDots();
+                goToSlide(currentIndex); // Reajusta a posição e os botões
+            });
+
+            // --- INICIALIZAÇÃO ---
+            setItemsPerPage();
+            createDots();
+            goToSlide(0);
+            startAutoplay();
+        });
     </script>
+
 </body>
 </html>
