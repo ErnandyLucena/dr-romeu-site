@@ -33,12 +33,54 @@
         from { transform: translate(-50%, -50%) rotate(0deg); }
         to { transform: translate(-50%, -50%) rotate(360deg); }
     }
-    .animate-spin-slow {
-        animation: spin-slow 35s linear infinite;
-    }
+    
     .bg-gradient-radial {
         background-image: radial-gradient(circle, var(--tw-gradient-stops));
     }
+
+    .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #3b82f6; /* Azul de destaque */
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        .nav-link.active {
+            color: #3b82f6;
+        }
+
+        /* Animação para o menu mobile */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        /* Animação para o botão hamburguer */
+        .hamburger-line {
+            transition: all 0.3s ease-in-out;
+        }
+        #mobile-menu-button.open .line-1 {
+            transform: translateY(8px) rotate(45deg);
+        }
+        #mobile-menu-button.open .line-2 {
+            opacity: 0;
+        }
+        #mobile-menu-button.open .line-3 {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+
 
     /* Estrutura de cada item da linha do tempo */
     .timeline-item {
@@ -46,6 +88,11 @@
         padding-left: 5rem; /* Espaço para o ponto e a linha */
         margin-bottom: 3.5rem; /* Espaçamento entre os itens */
     }
+
+    .bg-grid {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 2rem 2rem;
+        }
 
     /* Ponto com ícone na linha do tempo */
     .timeline-dot {
@@ -147,6 +194,80 @@
             visibility: hidden;
         }
 
+        /* Padrão de blueprint para o fundo */
+        .blueprint-grid {
+            background-image:
+                linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+            background-size: 4rem 4rem;
+        }
+        /* Animações de flutuação */
+        @keyframes float-up-down {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes drift {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(5px, -5px); }
+            50% { transform: translate(0, -10px); }
+            75% { transform: translate(-5px, -5px); }
+            100% { transform: translate(0, 0); }
+        }
+        .animate-float {
+            animation: float-up-down 5s ease-in-out infinite;
+        }
+        .animate-drift {
+            animation: drift 12s ease-in-out infinite;
+        }
+        /* Animação da linha de scan */
+        @keyframes scan-line {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .scan-line::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.5), transparent);
+            animation: scan-line 4s linear infinite;
+            animation-delay: 1s;
+        }
+
+        @keyframes scroll-grid {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-3rem); }
+        }
+        .bg-grid-animated {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+            background-size: 3rem 3rem;
+            animation: scroll-grid 20s linear infinite;
+        }
+
+        /* Efeito Aurora Boreal */
+        @keyframes aurora {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .aurora-effect {
+            background: linear-gradient(-45deg, rgba(59, 130, 246, 0.1), rgba(99, 102, 241, 0.1), rgba(29, 78, 216, 0.15));
+            background-size: 400% 400%;
+            animation: aurora 15s ease infinite;
+        }
+
+
     </style>
 </head>
 <body class="bg-slate-50">
@@ -154,112 +275,177 @@
     <!-- ======================= -->
     <!-- 1. Cabeçalho (Fixo)     -->
     <!-- ======================= -->
-    <header id="header" class="glassmorphism fixed top-0 left-0 w-full z-50 transition-all duration-300">
-    <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
-        <a href="#inicio" class="text-xl md:text-2xl font-bold text-cyan-800">Dr. Romeu Cota</a>
-        <div class="hidden lg:flex items-center space-x-6">
-            <a href="#inicio" class="text-gray-600 hover:text-cyan-600 transition-colors">Início</a>
-            <a href="#sobre" class="text-gray-600 hover:text-cyan-600 transition-colors">Sobre</a>
-            <a href="#tratamentos" class="text-gray-600 hover:text-cyan-600 transition-colors">Tratamentos</a>
-            <a href="#jornada" class="text-gray-600 hover:text-cyan-600 transition-colors">Jornada</a>
-            <a href="#depoimentos" class="text-gray-600 hover:text-cyan-600 transition-colors">Depoimentos</a>
-            <a href="#contato" class="px-5 py-2 bg-cyan-600 text-white font-semibold rounded-full hover:bg-cyan-700 shadow-md hover:shadow-lg transition-all transform hover:scale-105">
-                Agendar Consulta
+    
+    
+    <!-- Menu Mobile (Overlay) -->
+    <header id="navbar" class="fixed bg-gradient-to-r from-blue-950/5 to-gray-950/80 top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md backdrop-saturate-150 shadow-md border-b border-white/10"">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#inicio" class="z-10">
+                <span class="font-extrabold text-xl text-white">Dr. Romeu Cota</span>
             </a>
-        </div>
-        <!-- Botão do Menu Mobile -->
-        <button id="mobile-menu-button" class="lg:hidden text-gray-700 focus:outline-none">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M4 6h16M4 12h16m-7 6h7"></path>
-            </svg>
-        </button>
-    </nav>
-
-    <!-- Menu Mobile -->
-    <div id="mobile-menu" class="hidden lg:hidden px-6 pt-2 pb-4">
-        <a href="#inicio" class="block py-2 text-gray-600 hover:text-cyan-600">Início</a>
-        <a href="#sobre" class="block py-2 text-gray-600 hover:text-cyan-600">Sobre</a>
-        <a href="#tratamentos" class="block py-2 text-gray-600 hover:text-cyan-600">Tratamentos</a>
-        <a href="#jornada" class="block py-2 text-gray-600 hover:text-cyan-600">Jornada</a>
-        <a href="#depoimentos" class="block py-2 text-gray-600 hover:text-cyan-600">Depoimentos</a>
-        <a href="#contato"
-            class="block mt-4 w-full text-center px-6 py-2 bg-cyan-600 text-white font-semibold rounded-full hover:bg-cyan-700 shadow-lg">
-            Agende sua Consulta
+    
+            <div class="hidden lg:flex items-center space-x-8">
+                <a href="#inicio" class="nav-link text-slate-300 hover:text-white text-sm font-medium active">Início</a>
+                <a href="#sobre" class="nav-link text-slate-300 hover:text-white text-sm font-medium">Sobre</a>
+                <a href="#tratamentos" class="nav-link text-slate-300 hover:text-white text-sm font-medium">Tratamentos</a>
+                <a href="#depoimentos" class="nav-link text-slate-300 hover:text-white text-sm font-medium">Depoimentos</a>
+                <a href="#agende" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20">
+                    Agendar Consulta
+                </a>
+            </div>
+    
+            <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none z-50 h-6 w-6 relative">
+                <span class="sr-only">Abrir menu</span>
+                <div class="block w-6 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <span aria-hidden="true" class="hamburger-line line-1 block absolute h-0.5 w-6 bg-current transform transition duration-500 ease-in-out -translate-y-2.5"></span>
+                    <span aria-hidden="true" class="hamburger-line line-2 block absolute h-0.5 w-6 bg-current transform transition duration-500 ease-in-out"></span>
+                    <span aria-hidden="true" class="hamburger-line line-3 block absolute h-0.5 w-6 bg-current transform transition duration-500 ease-in-out translate-y-2.5"></span>
+                </div>
+            </button>
+        </nav>
+    </header>
+    
+    <div id="mobile-menu" class="lg:hidden fixed inset-0 bg-slate-900/95 backdrop-blur-lg z-40 flex flex-col items-center justify-center space-y-8 transform -translate-x-full">
+        <a href="#inicio" class="mobile-nav-link text-2xl font-bold text-slate-300 hover:text-blue-500">Início</a>
+        <a href="#sobre" class="mobile-nav-link text-2xl font-bold text-slate-300 hover:text-blue-500">Sobre</a>
+        <a href="#tratamentos" class="mobile-nav-link text-2xl font-bold text-slate-300 hover:text-blue-500">Tratamentos</a>
+        <a href="#depoimentos" class="mobile-nav-link text-2xl font-bold text-slate-300 hover:text-blue-500">Depoimentos</a>
+        <a href="#agende" class="mt-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105">
+            Agendar Consulta
         </a>
     </div>
-</header>
+    
 
 
     <main>
         <!-- ======================= -->
         <!-- 2. Seção Hero           -->
         <!-- ======================= -->
-        <section id="inicio" class="bg-slate-900 py-24 px-5  md:py-32 flex justify-center items-center ">
-            <div class="container mx-auto mt-5 mb-5 md:mb-20 md:mt-14 px-6 grid lg:grid-cols-2 justify-center gap-12 items-center">
-                <div class="text-center lg:text-left reveal">
-                    <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-                        Recupere sua <span class="text-cyan-500">liberdade de movimento</span> com um especialista em quadril.
-                    </h1>
-                    <p class="mt-6 text-lg text-slate-400 max-w-xl mx-auto lg:mx-0">
-                        Tratamentos personalizados para dores, lesões e patologias do quadril.
-                    </p>
-                    <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="#contato" class="px-6 py-3 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 shadow-xl transition-all transform hover:scale-105 flex items-center justify-center gap-2">
-                            <i class="fab fa-whatsapp"></i> Falar pelo WhatsApp
-                        </a>
-                        <a href="#contato" class="px-6 py-3 bg-cyan-600 text-white font-bold rounded-full hover:bg-cyan-700 shadow-xl transition-all transform hover:scale-105 flex items-center justify-center gap-2">
-                           <i class="fa-regular fa-calendar-check"></i> Agendar Consulta
-                        </a>
-                    </div>
-                </div>
-                <div class="flex justify-center reveal">
-                    <div class="relative w-full max-w-sm">
-                        <img src="assets/romeu-01.png"
-                             alt="Foto do Dr. Romeu Cota, ortopedista especialista em quadril"
-                             class="rounded-3xl shadow-2xl w-full h-auto">
-                        <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-cyan-200 rounded-full opacity-60 -z-10"></div>
-                        <div class="absolute -top-4 -left-4 w-32 h-32 border-8 border-cyan-500 rounded-3xl -z-10"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ======================= -->
-        <!-- 3. Sobre o Dr. Romeu    -->
-        <!-- ======================= -->
-        <section id="sobre" class="py-20 lg:py-40 bg-slate-800 text-white px-6 ">
-    <div class="container mx-auto px-6 grid lg:grid-cols-5 gap-16 items-center">
+        <div class="relative bg-slate-950 overflow-hidden">
+            <!-- EFEITOS DE FUNDO MELHORADOS -->
+            <!-- Grelha visível apenas em algumas partes usando uma máscara radial -->
+            <div class="absolute inset-0 z-0 bg-grid-animated opacity-75 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]"></div>
+            <div class="absolute inset-0 z-10 aurora-effect"></div>
+            
+            <!-- Esferas de luz animadas -->
+            <div class="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 bg-blue-500/30 rounded-full blur-3xl animate-slow-pulse z-20"></div>
+            <div class="absolute top-1/3 left-1/4 w-1/2 h-1/2 bg-indigo-500/20 rounded-full blur-3xl animate-slow-pulse z-20" style="animation-delay: 2s;"></div>
+            <div class="absolute top-2/3 right-1/4 w-1/3 h-1/3 bg-blue-500/20 rounded-full blur-3xl animate-slow-pulse z-20" style="animation-delay: 6s;"></div>
+            <div class="absolute -bottom-1/4 -left-1/4 w-1/2 h-1/2 bg-indigo-500/30 rounded-full blur-3xl animate-slow-pulse z-20" style="animation-delay: 4s;"></div>
         
-        <div class="lg:col-span-2 flex justify-center reveal">
-            <div class="relative group">
-                <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur-md opacity-60 group-hover:opacity-80 transition duration-500"></div>
-                <img src="assets/romeu-02.png"
-                     alt="Foto profissional do Dr. Romeu Cota"
-                     class="relative rounded-2xl shadow-xl w-full max-w-xs lg:max-w-none transform rotate-[-3deg] group-hover:rotate-0 group-hover:scale-105 transition-transform duration-300">
-            </div>
-        </div>
+        
+            <!-- ======================= -->
+            <!-- 1. Seção Hero           -->
+            <!-- ======================= -->
+            <section id="inicio" class="relative min-h-screen flex items-center justify-center text-white pt-24 px-8 pb-20">
+                <div class="max-w-7xl mx-auto px-6 sm:px-12 lg:px-8 relative z-30">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                        <div class="text-center md:text-left">
+                            <h1 class="reveal text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300">
+                              Recupere sua liberdade de movimento com um especialista em quadril.
+                            </h1>
+                            <p class="reveal text-slate-300 text-lg md:text-xl mb-10 max-w-xl mx-auto md:mx-0" style="transition-delay: 0.1s;">
+                              Tratamentos personalizados para dores, lesões e patologias do quadril.
+                            </p>
+                            <div class="reveal flex flex-col sm:flex-row gap-4 justify-center md:justify-start" style="transition-delay: 0.2s;">
+                                <a href="#agende" class="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold flex items-center justify-center space-x-2 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/20">
+                                  <i class="fa-solid fa-calendar-check"></i>
+                                  <span>Agendar Consulta</span>
+                                </a>
+                                <a href="https://wa.me/SEUNUMERO" target="_blank" class="bg-slate-700 hover:bg-slate-600 text-slate-100 py-3 px-6 rounded-lg font-semibold flex items-center justify-center space-x-2 transition-all duration-300 transform hover:scale-105">
+                                  <i class="fab fa-whatsapp"></i>
+                                  <span>Falar pelo WhatsApp</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="relative w-full max-w-sm mx-auto md:mx-0 lg:ml-auto group">
+                            <div class="absolute -inset-16 w-full h-full bg-blue-600/10 rounded-full blur-3xl animate-drift"></div>
+                            <div class="absolute -top-5 -left-5 bg-slate-700/50 backdrop-blur-sm text-blue-300 w-16 h-16 rounded-full flex items-center justify-center shadow-lg transform transition-all duration-500 group-hover:-translate-x-8 group-hover:-translate-y-8 z-20 animate-float" style="animation-delay: 1s;">
+                                <i class="fas fa-bone text-2xl"></i>
+                            </div>
+                            <div class="absolute -bottom-8 -right-8 bg-slate-700/50 backdrop-blur-sm text-blue-300 w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg transform transition-all duration-500 group-hover:translate-x-4 group-hover:translate-y-4 z-20 animate-float">
+                                <i class="fas fa-wave-square text-3xl"></i>
+                            </div>
+                            <div class="absolute -inset-2.5 bg-slate-800 rounded-2xl transform -rotate-3 transition-transform duration-500 group-hover:rotate-[-5deg] border-2 border-slate-700/50"></div>
+                            <div class="relative rounded-2xl shadow-2xl w-full h-auto overflow-hidden transition-transform duration-500 group-hover:scale-105 z-10">
+                                <img src="assets/romeu-01.png" onerror="this.src='https://placehold.co/600x800/1e293b/ffffff?text=Dr.+Romeu+Cota';" alt="Foto do Dr. Romeu Cota" class="relative w-full h-auto">
+                                <div class="scan-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <!-- ======================= -->
+            <!-- 2. Sobre o Dr. Romeu (Layout Melhorado) -->
+            <!-- ======================= -->
+            <section id="sobre" class="relative min-h-screen py-20 lg:py-32 px-6 text-white bg-gradient-to-r from-blue-950/30 to-gray-950/80 overflow-hidden">
 
-        <div class="lg:col-span-3 reveal">
-            <h2 class="section-title text-left text-3xl lg:text-4xl font-bold text-white mb-6">
+    <!-- Fundo decorativo com formas animadas e máscara -->
+    <div class="absolute inset-0 z-0">
+        <!-- Grade sutil -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle,_rgba(255,255,255,0.02)_1px,_transparent_1px)] [background-size:40px_40px]"></div>
+
+        <!-- Máscara radial -->
+        <div class="absolute inset-0 bg-gradient-radial from-black/70 via-transparent to-transparent mask-image [mask-image:radial-gradient(ellipse_80%_60%_at_50%_50%,white,transparent)]"></div>
+
+        <!-- Forma brilhante azul no topo esquerdo -->
+        <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse-slow"></div>
+
+        <!-- Forma brilhante roxa no canto inferior direito -->
+        <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 3s;"></div>
+    </div>
+
+    <!-- Conteúdo -->
+    <div class="container mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-30">
+        <!-- Coluna da Esquerda: Texto e Citação -->
+        <div class="reveal">
+            <h2 class="text-3xl lg:text-4xl font-bold mb-6">
                 Sobre o Dr. Romeu Cota
             </h2>
-            <p class="mb-4 text-slate-300 leading-relaxed">
-                Médico graduado, com residência médica em Ortopedia e Traumatologia e especialização em Cirurgia de Quadril, o Dr. Romeu Cota dedica-se ao diagnóstico e tratamento das mais diversas patologias que afetam esta articulação.
-            </p>
-            <p class="mb-8 text-slate-300 leading-relaxed">
-                Com vasta experiência e milhares de pacientes atendidos, seu principal objetivo é restaurar a função e aliviar a dor, permitindo que seus pacientes retomem suas atividades diárias com mais qualidade de vida.
-            </p>
-            
-            <div class="mt-8 p-6 bg-slate-800/50 border-l-4 border-cyan-400 rounded-r-lg shadow-lg">
-                <p class="text-lg italic text-cyan-200">
-                    "Comprometido com o bem-estar e qualidade de vida dos meus pacientes."
+            <div class="w-24 h-1.5 bg-blue-500 mb-8"></div>
+            <div class="space-y-4 text-slate-300 leading-relaxed">
+                <p>
+                    Médico graduado, com residência médica em Ortopedia e Traumatologia e especialização em Cirurgia de Quadril, o Dr. Romeu Cota dedica-se ao diagnóstico e tratamento das mais diversas patologias que afetam esta articulação.
+                </p>
+                <p>
+                    Com vasta experiência e milhares de pacientes atendidos, seu principal objetivo é restaurar a função e aliviar a dor, permitindo que seus pacientes retomem suas atividades diárias com mais qualidade de vida.
                 </p>
             </div>
+             <blockquote class="mt-10 p-6 bg-slate-800/50 border-l-4 border-blue-400 rounded-r-lg shadow-lg">
+                <p class="text-lg italic text-blue-200">
+                    "Comprometido com o bem-estar e qualidade de vida dos meus pacientes."
+                </p>
+            </blockquote>
         </div>
-
+        
+        <!-- Coluna da Direita: Imagem e Cards de Destaque -->
+        <div class="reveal lg:pt-12 px-5 md:px-0" style="transition-delay: 0.1s;">
+             <div class="relative group">
+                <img src="assets/i2.jpeg"
+ alt="Foto profissional do Dr. Romeu Cota"
+ class="relative rounded-xl shadow-2xl w-full max-w-sm mx-auto scale-105 group-hover:scale-110 transform transition-transform duration-300 z-10 object-cover aspect-[3/4]">
+                
+                <!-- Card de Destaque Flutuante -->
+                <div class="absolute -bottom-12 -left-5 md:-left-0 w-4/5 max-w-xs bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/10 shadow-2xl z-20 transition-all duration-500 group-hover:bottom-[-4rem] group-hover:left-[-3rem]">
+                    <h4 class="font-bold text-white text-lg">Especialista em Quadril</h4>
+                    <div class="flex space-x-4 mt-4 text-center">
+                        <div>
+                            <p class="text-2xl font-bold text-blue-400">15+</p>
+                            <p class="text-xs text-slate-300">Anos de Experiência</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold text-blue-400">5k+</p>
+                            <p class="text-xs text-slate-300">Pacientes Atendidos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
+        </div>
         
         <!-- ============================== -->
         <!-- 4. Especialidades e Tratamentos -->
@@ -389,7 +575,7 @@
         <!-- ============================== -->
         <!-- 6. Depoimentos de Pacientes    -->
         <!-- ============================== -->
-        <section id="depoimentos" class="py-20 gradient-background">
+        <section id="depoimentos" class="py-20 px-7 gradient-background">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12 reveal">
                     <h2 class="section-title text-3xl font-bold text-slate-800">Depoimentos de Pacientes</h2>
@@ -500,18 +686,93 @@
         <!-- ============================== -->
         <!-- 8. Chamada para Ação Final     -->
         <!-- ============================== -->
-        <section id="contato" class="py-20 bg-slate-800 text-white">
-            <div class="container mx-auto px-6 text-center">
-                <div class="reveal">
-                    <h2 class="text-3xl font-bold">Não conviva com a dor no quadril.</h2>
-                    <p class="mt-4 text-lg text-slate-300 max-w-2xl mx-auto">Agende sua consulta com um especialista e dê o primeiro passo para uma vida sem dor e com mais movimento!</p>
-                    <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-                        <a href="#" class="px-8 py-4 bg-white text-slate-800 font-bold rounded-full hover:bg-gray-100 shadow-xl transition-all transform hover:scale-105">
-                            Quero Agendar Consulta
-                        </a>
-                        <a href="#" class="px-8 py-4 bg-green-500 text-white font-bold rounded-full hover:bg-green-600 shadow-xl transition-all transform hover:scale-105">
-                            Tirar Dúvidas no WhatsApp
-                        </a>
+        <section id="agende" class="relative py-20 lg:py-32 overflow-hidden">
+            <!-- EFEITOS DE FUNDO -->
+            <div class="absolute inset-0 z-0 bg-slate-950">
+                <div class="absolute inset-0 bg-grid-animated opacity-75 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]"></div>
+                <div class="absolute inset-0 aurora-effect"></div>
+                <div class="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 bg-blue-500/30 rounded-full blur-3xl animate-slow-pulse"></div>
+                <div class="absolute -bottom-1/4 -left-1/4 w-1/2 h-1/2 bg-indigo-500/30 rounded-full blur-3xl animate-slow-pulse" style="animation-delay: 4s;"></div>
+            </div>
+            
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-24 text-white">
+                    <h2 class="reveal text-3xl md:text-4xl font-bold">Agende sua Consulta</h2>
+                    <p class="reveal text-slate-300 max-w-2xl mx-auto mt-4" style="transition-delay: 0.1s;">Preencha o formulário abaixo e minha equipe entrará em contato para confirmar o melhor horário para você.</p>
+                </div>
+        
+                <div class="max-w-6xl mx-auto grid md:grid-cols-5 gap-12 items-center">
+                    <!-- Coluna de Informações -->
+                    <div class="md:col-span-2 text-white reveal items-center flex justify-center flex-col" style="transition-delay: 0.2s;">
+                        <h3 class="font-bold text-xl mb-6">Informações de Contato</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="bg-blue-500/20 text-blue-300 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Endereço</h4>
+                                    <p class="text-slate-400 text-sm">Av. Brasil, 1234 - Sala 506<br>Centro, São Paulo - SP</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="bg-blue-500/20 text-blue-300 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Telefone</h4>
+                                    <p class="text-slate-400 text-sm">(11) 99999-9999</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="bg-blue-500/20 text-blue-300 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Email</h4>
+                                    <p class="text-slate-400 text-sm">contato@drromeucota.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="bg-blue-500/20 text-blue-300 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Horário de Atendimento</h4>
+                                    <p class="text-slate-400 text-sm">Segunda a Sexta<br>08:00 - 18:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Coluna do Formulário -->
+                    <div class="md:col-span-3  bg-slate-800/50 backdrop-blur-md p-8 rounded-2xl border border-slate-700 shadow-2xl reveal" style="transition-delay: 0.3s;">
+                         <form action="https://api.staticforms.xyz/submit" method="POST" class="space-y-6">
+                            <input type="hidden" name="accessKey" value="SUA_ACCESS_KEY_AQUI">
+                            <input type="hidden" name="redirectTo" value="https://example.com/thank-you.html"> 
+                            
+                            <div>
+                                <label for="name" class="block text-sm font-semibold text-slate-300 mb-2">Nome Completo</label>
+                                <input type="text" name="name" id="name" required class="w-full px-4 py-3 border border-slate-600 bg-slate-900/50 text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder:text-slate-500" placeholder="Seu nome">
+                            </div>
+                            <div class="grid sm:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="email" class="block text-sm font-semibold text-slate-300 mb-2">Email</label>
+                                    <input type="email" name="email" id="email" required class="w-full px-4 py-3 border border-slate-600 bg-slate-900/50 text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder:text-slate-500" placeholder="seu.email@exemplo.com">
+                                </div>
+                                 <div>
+                                    <label for="phone" class="block text-sm font-semibold text-slate-300 mb-2">Telefone / WhatsApp</label>
+                                    <input type="text" name="phone" id="phone" required class="w-full px-4 py-3 border border-slate-600 bg-slate-900/50 text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder:text-slate-500" placeholder="(00) 00000-0000">
+                                </div>
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-semibold text-slate-300 mb-2">Mensagem</label>
+                                <textarea name="message" id="message" rows="4" class="w-full px-4 py-3 border border-slate-600 bg-slate-900/50 text-white rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition placeholder:text-slate-500" placeholder="Descreva brevemente o motivo do seu contato..."></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg shadow-blue-500/30">
+                              Enviar e Agendar Consulta
+                            </button>
+                          </form>
                     </div>
                 </div>
             </div>
@@ -736,6 +997,43 @@
             goToSlide(0);
             startAutoplay();
         });
+          
+        document.addEventListener('DOMContentLoaded', () => {
+        const navbar = document.getElementById('navbar');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-nav-link');
+
+        // --- LÓGICA DO MENU MOBILE (CORRIGIDA) ---
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenuButton.classList.toggle('open');
+                
+                // CORREÇÃO: Força a remoção da classe 'hidden' para evitar conflitos
+                mobileMenu.classList.remove('hidden');
+
+                // Usa transform para a animação de deslize
+                if (mobileMenu.classList.contains('-translate-x-full')) {
+                    mobileMenu.classList.remove('-translate-x-full');
+                    mobileMenu.classList.add('translate-x-0');
+                } else {
+                    mobileMenu.classList.remove('translate-x-0');
+                    mobileMenu.classList.add('-translate-x-full');
+                }
+            });
+
+            // Fecha o menu ao clicar num dos links
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenuButton.classList.remove('open');
+                    mobileMenu.classList.remove('translate-x-0');
+                    mobileMenu.classList.add('-translate-x-full');
+                });
+            });
+        }
+    });
+        
+    
     </script>
 
 </body>
